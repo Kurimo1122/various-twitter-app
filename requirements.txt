@@ -3,4 +3,3 @@ Jinja2==2.8
 Werkzeug==0.11.11
 gunicorn==19.6.0
 tweepy==3.5.0
-mecab-python3==0.7
