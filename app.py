@@ -27,6 +27,7 @@ def index():
 
 	# get user-timeline after authentication
 	timeline = user_timeline()
+	print(timeline)
 
 	return render_template('index.html', timeline=timeline)
 
