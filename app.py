@@ -27,8 +27,9 @@ def index():
 
 	# get user-timeline after authentication
 	timeline = user_timeline()
-	for status in timeline:
-		print(status.text)
+	if timline == True:
+		for status in timeline:
+			print(status.text)
 
 	return render_template('index.html', timeline=timeline)
 
