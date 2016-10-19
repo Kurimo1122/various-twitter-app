@@ -27,7 +27,7 @@ def index():
 
 	# get user-timeline after authentication
 	timeline = user_timeline()
-	if timline == True:
+	if timeline == True:
 		for status in timeline:
 			print(status.text)
 
