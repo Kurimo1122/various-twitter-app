@@ -32,8 +32,7 @@ def index():
     else:
         print("True!")
         for status in timeline:
-						text = status.text
-						print(text[0:10])
+						print(status.text[0:10])
 
 
     return render_template('index.html', timeline=timeline)
