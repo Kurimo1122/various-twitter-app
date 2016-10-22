@@ -44,13 +44,13 @@ def twitter_auth():
 		
     try:
 		# Get the redirect_url
-		redirect_url = auth.get_authorization_url()
-			
-		# Save the request_token which will be used after authentication
-		session['request_token'] = auth.request_token
+        redirect_url = auth.get_authorization_url()
+        
+        # Save the request_token which will be used after authentication
+        session['request_token'] = auth.request_token
 		
 	except (tweepy.TweepError, e):
-		logging.error(str(e))
+	    logging.error(str(e))
     
     return redirect(redirect_url)
 
