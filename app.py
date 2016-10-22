@@ -32,7 +32,8 @@ def index():
     else:
         print("True!")
         for status in timeline:
-						print(status.text[0:10])
+					if not "RT" or "@" in status.text:
+							print(status.text)
 
 
     return render_template('index.html', timeline=timeline)
