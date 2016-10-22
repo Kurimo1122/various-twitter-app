@@ -48,36 +48,36 @@ def twitter_auth():
         
         # Save the request_token which will be used after authentication
         session['request_token'] = auth.request_token
-		
-	except (tweepy.TweepError, e):
-	    logging.error(str(e))
+    
+    except (tweepy.TweepError, e):
+        logging.error(str(e))
     
     return redirect(redirect_url)
 
 # Function to get user_timeline
 def user_timeline():
     # Check request_token and oauth_verifier
-	token = session.pop('request_token', None)
-	verifier = request.args.get('oauth_verifier')
-	
-	if token is None or verifier is None:
-		return False # if the authentication has not yet been done.
+    token = session.pop('request_token', None)
+    verifier = request.args.get('oauth_verifier')
+    
+    if token is None or verifier is None:
+        return False # if the authentication has not yet been done.
 	
 	# OAuth authentication using tweepy
-	auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, CALLBACK_URL)
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, CALLBACK_URL)
 	
 	# Get access token, Access token secret
-	auth.request_token = token
-	try:
-		auth.get_access_token(verifier)
-	except (tweepy.TweepError, e):
-		logging.error(str(e))
-	
-	return {}
+    auth.request_token = token
+    try:
+        auth.get_access_token(verifier)
+    except (tweepy.TweepError, e):
+        logging.error(str(e))
+       
+    return {}
 
 	# Access to Twitter API using tweepy
-	api = tweepy.API(auth)
+    api = tweepy.API(auth)
 	
 	# Get tweets (max: 100 tweets) list
-	return api.user_timeline(count=100)
+    return api.user_timeline(count=100)
 
