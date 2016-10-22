@@ -42,7 +42,7 @@ def index():
         print("False!")
     else:
         print("True!")
-        """
+        
         for status in timeline:
             text = status.text
             if 'RT' in text:
@@ -71,7 +71,7 @@ def index():
                 font_path = fpath,
                 #stopwords = set(stop_words)
                 ).generate(wakati_all)
-
+        """
         output = plt.figure()
         plt.imshow(wordcloud)
         plt.savefig('/static/images/output.png')
