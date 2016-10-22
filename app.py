@@ -73,8 +73,7 @@ def user_timeline():
         auth.get_access_token(verifier)
     except (tweepy.TweepError, e):
         logging.error(str(e))
-       
-    return {}
+        return {}
 
 	# Access to Twitter API using tweepy
     api = tweepy.API(auth)
