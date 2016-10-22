@@ -24,17 +24,17 @@ app.secret_key = os.environ['SECRET_KEY']
 # Set root page
 @app.route('/')
 def index():
-		# get user-timeline after authentication
-		timeline = user_timeline()
-		if timeline == False:
-			print("False!")
-		else:
-			print("True!")
-			for status in timeline:
-				text = status.text
-				print(text)
-		
-		return render_template('index.html', timeline=timeline)
+    # get user-timeline after authentication
+    timeline = user_timeline()
+    if timeline == False:
+        print("False!")
+    else:
+        print("True!")
+        for status in timeline:
+            text = status.text
+            print(text)
+    
+    return render_template('index.html', timeline=timeline)
 
 # Set auth page
 @app.route('/twitter_auth', methods=['GET'])
