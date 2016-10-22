@@ -2,6 +2,11 @@ import os
 import logging
 import tweepy
 from flask import Flask, session, redirect, render_template, request
+from igo.Tagger import Tagger
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import codecs
+
 
 # Consumer Key
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
@@ -26,15 +31,49 @@ app.secret_key = os.environ['SECRET_KEY']
 def index():
     # get user-timeline after authentication
     timeline = user_timeline()
+    text_list = []
+    wakati_list = []
+    text_all = ""
+    wakati_all = ""
+
+    fpath = "./Fonts/ヒラギノ角ゴシック W4.ttc"
+    
     if timeline == False:
         print("False!")
     else:
         print("True!")
         for status in timeline:
-            #text = status.text
-            #print(text)
-            print(status.text)
-    
+            text = status.text
+            if 'RT' in text:
+                pass
+            elif '@' in text:
+                pass
+            else:
+                text_list.append(text)
+        text_all = "".join(text_list)
+
+        tagger = Tagger()
+        wakati_text = tagger.parse(text_all)
+
+        for word in wakati_text:
+            if '名詞' in word.feature:
+                wakati_list.append(word.surface)
+
+        wakati_all = " ".join(wakati_list)
+
+        wordcloud = WordCloud(
+                background_color = 'white',
+                max_font_size = 40,
+                relative_scaling = .5,
+                # width = 900,
+                # height = 500,
+                font_path = fpath,
+                #stopwords = set(stop_words)
+                ).generate(wakati_all)
+
+        output = plt.figure()
+        plt.imshow(wordcloud)
+        plt.savefig('/static/images/output.png')
     return render_template('index.html', timeline=timeline)
 
 # Set auth page
