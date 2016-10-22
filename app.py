@@ -42,6 +42,7 @@ def index():
         print("False!")
     else:
         print("True!")
+        """
         for status in timeline:
             text = status.text
             if 'RT' in text:
@@ -74,6 +75,7 @@ def index():
         output = plt.figure()
         plt.imshow(wordcloud)
         plt.savefig('/static/images/output.png')
+        """
     return render_template('index.html', timeline=timeline)
 
 # Set auth page
