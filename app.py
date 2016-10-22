@@ -72,7 +72,7 @@ def index():
                 #stopwords = set(stop_words)
                 ).generate(wakati_all)
         #TODO Something wrong with following three lines
-        #output = plt.figure()
+        output = plt.figure()
         #plt.imshow(wordcloud)
         #plt.savefig('/static/images/output.png')
         
