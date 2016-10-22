@@ -36,7 +36,7 @@ def index():
     text_all = ""
     wakati_all = ""
 
-    fpath = "./Fonts/ヒラギノ角ゴシック W4.ttc"
+    fpath = "./Fonts/hiragino.ttc"
     
     if timeline == False:
         print("False!")
