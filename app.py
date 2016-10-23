@@ -1,17 +1,20 @@
 # coding:utf-8
-
+import StringIO
 import os
 import logging
 import tweepy
 from flask import Flask, session, redirect, render_template, request, send_file
 from igo.Tagger import Tagger
 from wordcloud import WordCloud
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import random
 import string
 import codecs
 
+fontprop = FontProperties(fname='./fonts/NotoSansCJKjp-Medium.otf', size=10)
 
 # Consumer Key
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
@@ -86,7 +89,7 @@ def graph2():
                     relative_scaling = .5,
                     # width = 900,
                     # height = 500,
-                    font_path = fpath,
+                    #font_path = fpath,
                     #stopwords = set(stop_words)
                     ).generate(wakati_all)
             
@@ -94,20 +97,28 @@ def graph2():
             plt.imshow(wordcloud)
             plt.axis("off")
 
-            canvas = figureCanvasAgg(fig)
-            canvas.print_figure(self.file_name)
+            strio = StringIO.StringIO()
+            fig.savefig(strio, format="svg")
+            plt.close(fig)
+
+            strio.seek(0)
+            svgstr = strio.buf[strio.buf.find("<svg"):]
+
+            #canvas = figureCanvasAgg(fig)
+            #canvas.print_figure(self.file_name)
         def __enter__(self):
             return self
 
-        def __exit__(self, exc_type, exc_value, trackback):
-            os.remove(self.file_name)
+        #def __exit__(self, exc_type, exc_value, trackback):
+        #    os.remove(self.file_name)
 
     chars = string.digits + string.ascii_letters
     img_name = ''.join(random.choice(chars) for i in range(64)) + '.png'
 
     with TempImage(img_name) as img:
         img.create_png()
-        return send_file(img_name, mimetype='image/png')
+        return render_template("sin.html", svgstr=svgstr.decode("utf-8"))
+        #return send_file(img_name, mimetype='image/png')
 
 
 # Set auth page
