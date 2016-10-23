@@ -1,5 +1,5 @@
 # coding:utf-8
-from io import StringIO
+from cStringIO import StringIO
 import os
 import logging
 import tweepy
