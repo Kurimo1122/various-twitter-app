@@ -1,5 +1,5 @@
 # coding:utf-8
-from cStringIO import StringIO
+import io
 import os
 import logging
 import tweepy
@@ -88,15 +88,20 @@ def graph2():
         fig = plt.figure()
         plt.imshow(wordcloud)
         plt.axis("off")
+        
+        f = tempfile.TemporaryFile()
 
-        strio = StringIO()
+        #strio = StringIO()
         #fig.savefig(strio, format="svg")
-        fig.savefig(strio)
-        plt.close(fig)
+        fig.savefig(f)
+        #plt.close(fig)
+        
+        response = send_file(io.BytesIO(f.read()), mimetype='image/png')
+        f.close()
 
-        strio.seek(0)
+        #strio.seek(0)
         #svgstr = strio.buf[strio.buf.find("<svg"):]
-        return send_file(strio, attachment_filename='graph2.png', as_attachment=True)
+        #return send_file(strio, attachment_filename='graph2.png', as_attachment=True)
     #return render_template("sin.html", svgstr=svgstr.decode("utf-8"), timeline=timeline)
 
 
