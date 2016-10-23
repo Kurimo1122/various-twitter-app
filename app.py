@@ -14,7 +14,6 @@ import random
 import string
 import codecs
 
-fontprop = FontProperties(fname='./fonts/NotoSansCJKjp-Medium.otf', size=10)
 
 # Consumer Key
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
