@@ -41,7 +41,7 @@ def index():
     timeline = user_timeline()
     return render_template('index.html', timeline=timeline)
 
-@app.route('/graph2.png')
+@app.route('/fig/')
 def graph2():
     
     timeline = user_timeline()
@@ -110,9 +110,9 @@ def graph2():
     #return render_template("sin.html", svgstr=svgstr.decode("utf-8"), timeline=timeline)
 
 
-@app.route('/picture')
-def picture():
-    return '<img src="graph2.png">'
+@app.route('/images')
+def images():
+    return render_template("test.html")
 
 
 
