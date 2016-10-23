@@ -53,7 +53,7 @@ def graph2():
    
     if timeline == False:
         print("False!")
-    
+        return 'False!'
     else:
         print("True!")
         
