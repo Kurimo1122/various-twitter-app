@@ -89,7 +89,7 @@ def graph2():
         plt.imshow(wordcloud)
         plt.axis("off")
 
-        strio = StringIO.StringIO()
+        strio = StringIO()
         fig.savefig(strio, format="svg")
         plt.close(fig)
 
