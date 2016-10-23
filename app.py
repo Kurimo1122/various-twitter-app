@@ -22,7 +22,7 @@ CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 
 # CALLBACK_URL (Will be redirected after authentication)
- CALLBACK_URL = 'https://vaious-twitter-app.herokuapp.com'
+CALLBACK_URL = 'https://vaious-twitter-app.herokuapp.com'
 #CALLBACK_URL = 'http://localhost:5000' # local environment
 
 logging.warn('app start!')
