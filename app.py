@@ -53,6 +53,7 @@ def graph2():
    
     if timeline == False:
         print("False!")
+        #twitter_auth()
         return 'False!'
     else:
         print("True!")
