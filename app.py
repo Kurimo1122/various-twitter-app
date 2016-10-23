@@ -101,7 +101,7 @@ def graph2():
 
 
 @app.route('/picture')
-def index():
+def picture():
     return '<img src="graph2.png">'
 
 
