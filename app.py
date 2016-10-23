@@ -102,6 +102,8 @@ def graph2():
         #plt.close(fig)
         img.seek(0)
         response = send_file(img, mimetype='image/png')
+        return response
+
         #f.close()
 
         #strio.seek(0)
