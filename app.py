@@ -34,13 +34,13 @@ app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
 
 # Set root page
-@app.route('/')
+@app.route('/test')
 def index():
     # get user-timeline after authentication
     timeline = user_timeline()
     return render_template('index.html', timeline=timeline)
 
-@app.route('/graph2')
+@app.route('/')
 def graph2():
     
     timeline = user_timeline()
