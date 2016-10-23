@@ -97,7 +97,7 @@ def graph2():
         strio.seek(0)
         svgstr = strio.buf[strio.buf.find("<svg"):]
 
-        return render_template("sin.html", svgstr=svgstr.decode("utf-8"))
+    return render_template("sin.html", svgstr=svgstr.decode("utf-8"))
 
 # Set auth page
 @app.route('/twitter_auth', methods=['GET'])
