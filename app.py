@@ -1,5 +1,5 @@
 # coding:utf-8
-import io.StringIO
+from io import StringIO
 import os
 import logging
 import tweepy
