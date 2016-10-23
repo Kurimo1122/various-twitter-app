@@ -8,6 +8,7 @@ from igo.Tagger import Tagger
 from wordcloud import WordCloud
 import matplotlib
 matplotlib.use('Agg')
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import random
@@ -84,11 +85,15 @@ def graph2():
             #font_path = fpath,
             #stopwords = set(stop_words)
             ).generate(wakati_all)
-            
+        """   
         fig = plt.figure()
         plt.imshow(wordcloud)
         plt.axis("off")
-        
+        """
+        fig, ax = plt.subplots(1)
+        ppl.bar(ax, np.arange(10), np.abs(np.random.randn(10)))
+        canvas = FigureCanvas(fig)
+
         #f = tempfile.TemporaryFile()
         img = io.BytesiIO()
         #strio = StringIO()
