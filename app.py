@@ -34,13 +34,13 @@ app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
 
 # Set root page
-@app.route('/test')
+@app.route('/')
 def index():
     # get user-timeline after authentication
     timeline = user_timeline()
     return render_template('index.html', timeline=timeline)
 
-@app.route('/')
+@app.route('/graph2.png')
 def graph2():
     
     timeline = user_timeline()
@@ -90,13 +90,21 @@ def graph2():
         plt.axis("off")
 
         strio = StringIO()
-        fig.savefig(strio, format="svg")
+        #fig.savefig(strio, format="svg")
+        fig.savefig(strio)
         plt.close(fig)
 
         strio.seek(0)
-        svgstr = strio.buf[strio.buf.find("<svg"):]
+        #svgstr = strio.buf[strio.buf.find("<svg"):]
+        return send_file(strio, attachment_filename='graph2.png', as_attachment=True)
+    #return render_template("sin.html", svgstr=svgstr.decode("utf-8"), timeline=timeline)
 
-    return render_template("sin.html", svgstr=svgstr.decode("utf-8"), timeline=timeline)
+
+@app.route('/picture')
+def index():
+    return '<img src="graph2.png">'
+
+
 
 # Set auth page
 @app.route('/twitter_auth', methods=['GET'])
