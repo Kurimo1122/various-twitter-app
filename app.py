@@ -53,6 +53,7 @@ def graph2():
    
     if timeline == False:
         print("False!")
+        return render_template('index.html', timeline=timeline)
     else:
         print("True!")
         
@@ -85,18 +86,18 @@ def graph2():
             #stopwords = set(stop_words)
             ).generate(wakati_all)
             
-    fig = plt.figure()
-    plt.imshow(wordcloud)
-    plt.axis("off")
+        fig = plt.figure()
+        plt.imshow(wordcloud)
+        plt.axis("off")
 
-    strio = StringIO.StringIO()
-    fig.savefig(strio, format="svg")
-    plt.close(fig)
+        strio = StringIO.StringIO()
+        fig.savefig(strio, format="svg")
+        plt.close(fig)
 
-    strio.seek(0)
-    svgstr = strio.buf[strio.buf.find("<svg"):]
+        strio.seek(0)
+        svgstr = strio.buf[strio.buf.find("<svg"):]
 
-    return render_template("sin.html", svgstr=svgstr.decode("utf-8"))
+        return render_template("sin.html", svgstr=svgstr.decode("utf-8"))
 
 # Set auth page
 @app.route('/twitter_auth', methods=['GET'])
