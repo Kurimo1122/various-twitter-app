@@ -89,15 +89,15 @@ def graph2():
         plt.imshow(wordcloud)
         plt.axis("off")
         
-        f = tempfile.TemporaryFile()
-
+        #f = tempfile.TemporaryFile()
+        img = io.BytesiIO()
         #strio = StringIO()
         #fig.savefig(strio, format="svg")
-        fig.savefig(f)
+        fig.savefig(img)
         #plt.close(fig)
-        
-        response = send_file(io.BytesIO(f.read()), mimetype='image/png')
-        f.close()
+        img.seek(0)
+        response = send_file(img, mimetype='image/png')
+        #f.close()
 
         #strio.seek(0)
         #svgstr = strio.buf[strio.buf.find("<svg"):]
