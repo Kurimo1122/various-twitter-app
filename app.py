@@ -53,7 +53,7 @@ def graph2():
    
     if timeline == False:
         print("False!")
-        return render_template('index.html', timeline=timeline)
+    
     else:
         print("True!")
         
