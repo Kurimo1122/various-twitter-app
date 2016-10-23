@@ -1,10 +1,13 @@
 import os
 import logging
 import tweepy
-from flask import Flask, session, redirect, render_template, request
+from flask import Flask, session, redirect, render_template, request, send_file
 from igo.Tagger import Tagger
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+import random
+import string
 import codecs
 
 
@@ -31,52 +34,79 @@ app.secret_key = os.environ['SECRET_KEY']
 def index():
     # get user-timeline after authentication
     timeline = user_timeline()
-    text_list = []
-    wakati_list = []
-    text_all = ""
-    wakati_all = ""
-
-    fpath = "./Fonts/hiragino.ttc"
-    
-    if timeline == False:
-        print("False!")
-    else:
-        print("True!")
-        
-        for status in timeline:
-            text = status.text
-            if 'RT' in text:
-                pass
-            elif '@' in text:
-                pass
-            else:
-                text_list.append(text)
-        text_all = "".join(text_list)
-
-        tagger = Tagger()
-        wakati_text = tagger.parse(text_all)
-
-        for word in wakati_text:
-            if '名詞' in word.feature:
-                wakati_list.append(word.surface)
-
-        wakati_all = " ".join(wakati_list)
-
-        wordcloud = WordCloud(
-                background_color = 'white',
-                max_font_size = 40,
-                relative_scaling = .5,
-                # width = 900,
-                # height = 500,
-                font_path = fpath,
-                #stopwords = set(stop_words)
-                ).generate(wakati_all)
-        #TODO Something wrong with following three lines
-        output = plt.figure()
-        #plt.imshow(wordcloud)
-        #plt.savefig('/static/images/output.png')
-        
     return render_template('index.html', timeline=timeline)
+
+@app.route('/graph2')
+def graph2():
+    
+    class TempImage(object):
+        
+        def __init__(self, file_name):
+            self.file_name = file_name
+
+        def create_png(self):
+        
+            timeline = user_timeline()
+            text_list = []
+            wakati_list = []
+            text_all = ""
+            wakati_all = ""
+
+            fpath = "./Fonts/hiragino.ttc"
+    
+            if timeline == False:
+                print("False!")
+            else:
+                print("True!")
+        
+                for status in timeline:
+                    text = status.text
+                    if 'RT' in text:
+                        pass
+                    elif '@' in text:
+                        pass
+                    else:
+                        text_list.append(text)
+                text_all = "".join(text_list)
+
+                tagger = Tagger()
+                wakati_text = tagger.parse(text_all)
+
+                for word in wakati_text:
+                    if '名詞' in word.feature:
+                        wakati_list.append(word.surface)
+
+                wakati_all = " ".join(wakati_list)
+
+                wordcloud = WordCloud(
+                    background_color = 'white',
+                    max_font_size = 40,
+                    relative_scaling = .5,
+                    # width = 900,
+                    # height = 500,
+                    font_path = fpath,
+                    #stopwords = set(stop_words)
+                    ).generate(wakati_all)
+            
+            fig = plt.figure()
+            plt.imshow(wordcloud)
+            plt.axis("off")
+
+            canvas = figureCanvasAgg(fig)
+            canvas.print_figure(self.file_name)
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc_value, trackback):
+            os.remove(self.file_name)
+
+    chars = string.digits + string.ascii_letters
+    img_name = ''.join(random.choice(chars) for i in range(64)) + '.png'
+
+    with TempImage(img_name) as img:
+        img.create_png()
+        return send_file(img_name, mimetype='image/png')
+
 
 # Set auth page
 @app.route('/twitter_auth', methods=['GET'])
