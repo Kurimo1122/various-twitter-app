@@ -110,7 +110,7 @@ def word_cloud(user_id):
         # width = 900,
         # height = 500,
         font_path = fpath,
-        stopwords = set(stop_words)
+        stopwords = set(stop_words),
         mask = alice_mask,
         ).generate(wakati_all)
            
