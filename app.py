@@ -50,69 +50,69 @@ def index():
     """
     return render_template('index.html', timeline=timeline)
 
-@app.route('/word_cloud/<user_id>', methods=['POST'])
+@app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
-    #if request.method == 'POST':    
-    timeline = request.form['action']
+    if request.method == 'POST':    
+        timeline = request.form['action']
     #print(timeline[0].text)
-    text_list = []
-    wakati_list = []
-    text_all = ""
-    wakati_all = "野球"
+        text_list = []
+        wakati_list = []
+        text_all = ""
+        wakati_all = "野球"
 
-    fpath = "Fonts/NotoSansCJKjp-Medium.otf"
+        fpath = "Fonts/NotoSansCJKjp-Medium.otf"
    
-    if timeline == False:
-        return "False!"
-    else:
-        print("True!")
+        if timeline == False:
+            return "False!"
+        else:
+            print("True!")
         
-        for status in timeline:
-            text = status.text
-            if 'RT' in text:
-                pass
-            elif '@' in text:
-                pass
-            else:
-                text_list.append(text)
-        text_all = "".join(text_list)
+            for status in timeline:
+                text = status.text
+                if 'RT' in text:
+                    pass
+                elif '@' in text:
+                    pass
+                else:
+                    text_list.append(text)
+            text_all = "".join(text_list)
 
-        tagger = Tagger()
-        wakati_text = tagger.parse(text_all)
+            tagger = Tagger()
+            wakati_text = tagger.parse(text_all)
 
-        for word in wakati_text:
-            if '名詞' in word.feature:
-                wakati_list.append(word.surface)
+            for word in wakati_text:
+                if '名詞' in word.feature:
+                    wakati_list.append(word.surface)
 
-        wakati_all = " ".join(wakati_list)
+            wakati_all = " ".join(wakati_list)
 
-        wordcloud = WordCloud(
-            background_color = 'white',
-            max_font_size = 40,
-            relative_scaling = .5,
-            # width = 900,
-            # height = 500,
-            font_path = fpath,
-            #stopwords = set(stop_words)
-            ).generate(wakati_all)
+            wordcloud = WordCloud(
+                background_color = 'white',
+                max_font_size = 40,
+                relative_scaling = .5,
+                # width = 900,
+                # height = 500,
+                font_path = fpath,
+                #stopwords = set(stop_words)
+                ).generate(wakati_all)
            
-        fig = plt.figure()
-        plt.imshow(wordcloud)
-        plt.axis("off")
+            fig = plt.figure()
+            plt.imshow(wordcloud)
+            plt.axis("off")
         
         #fig, ax = plt.subplots(1)
         #ppl.bar(ax, np.arange(10), np.abs(np.random.randn(10)))
         #canvas = FigureCanvas(fig)
 
         #f = tempfile.TemporaryFile()
-        img = io.BytesIO()
+            img = io.BytesIO()
         #strio = StringIO()
         #fig.savefig(strio, format="svg")
-        fig.savefig(img)
+            fig.savefig(img)
         #plt.close(fig)
-        img.seek(0)
-        response = send_file(img, mimetype='image/png')
-        return response
+            img.seek(0)
+            response = send_file(img, mimetype='image/png')
+            return response
 
         #f.close()
 
