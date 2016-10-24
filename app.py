@@ -77,8 +77,8 @@ def index():
         if '名詞'.decode('utf-8') in word.feature:
             wakati_list.append(word.surface)
 
-    wakati_all = " ".join(wakati_list).decode('utf-8')
-    print(wakati_all)
+    wakati_all = " ".join(wakati_list)
+    #print(wakati_all)
     session['wakati_all'] = wakati_all
     #print(user_id)
     #print(timeline_list) 
