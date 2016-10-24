@@ -63,11 +63,15 @@ def index():
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
-    timeline = False
+    #timeline = False
     #if request.method == 'POST':    
     #timeline = request.form['action']
     #print(timeline[0].text)
-    timeline = session.get('user_timeline', None)
+    if timeline = session.get('user_timeline') is not None:
+        timeline = session.getu('user_timeline')
+    else:
+        timeline = None
+        print('noneoneoneoenanf')
     #my_var = request.args.get('user_timeline', None)
     #print(my_var)
     #timeline = False 
