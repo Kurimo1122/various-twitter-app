@@ -40,8 +40,10 @@ timeline = False
 @app.route('/')
 def index():
     # get user-timeline after authentication
-    global timeline
+    #global timeline
     timeline = user_timeline()
+    if timeline == True:
+        session['user_timeline'] = timeline
     """ 
     if timeline == True:
         user_id = timeline[0].user.screen_name
@@ -57,6 +59,8 @@ def word_cloud(user_id):
     #if request.method == 'POST':    
     #timeline = request.form['action']
     #print(timeline[0].text)
+    timeline = session.get('user_timeline', None)
+
     text_list = []
     wakati_list = []
     text_all = ""
