@@ -52,72 +52,58 @@ def index():
         user_id = timeline[0].user.screen_name
         timeline_list = []
         
-        for status in timeline:
-            json_str = json.dumps(status._json)
-            timeline_list.append(json_str)
+        text_list = []
+        wakati_list = []
+        text_all = ""
+        wakati_all = "友達"
 
-        session['user_timeline'] = timeline_list
-        print(user_id)
-        #print(timeline_list) 
-    return render_template('index.html', timeline=timeline)
+   
+        if timeline == False:
+            return "False!"
+        elif timeline == None:
+            return "False!"
+        else:
+            print("True!")
+    
+            for status in timeline:
+                text = status.text
+                if 'RT' in text:
+                    pass
+                elif '@' in text:
+                    pass
+                else:
+                    text_list.append(text)
+            text_all = "".join(text_list)
+
+            tagger = Tagger()
+            wakati_text = tagger.parse(text_all)
+
+            for word in wakati_text:
+                if '名詞' in word.feature:
+                    wakati_list.append(word.surface)
+
+            wakati_all = " ".join(wakati_list)
+
+            session['wakati_all'] = wakati_all
+            #print(user_id)
+            #print(timeline_list) 
+        return render_template('index.html', timeline=timeline)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
-    #timeline = False
-    #if request.method == 'POST':    
-    #timeline = request.form['action']
-    #print(timeline[0].text)
-    print(session.get('user_timeline'))
-    if session.get('user_timeline') is not None:
-        timeline = session.get('user_timeline')
-    else:
-        timeline = None
-        print('noneoneoneoenanf')
-    #my_var = request.args.get('user_timeline', None)
-    #print(my_var)
-    #timeline = False 
-
-    text_list = []
-    wakati_list = []
-    text_all = ""
-    wakati_all = "友達"
-
-    fpath = "Fonts/NotoSansCJKjp-Medium.otf"
-   
-    if timeline == False:
-        return "False!"
-    elif timeline == None:
-        return "False!"
-    else:
-        print("True!")
     
-        for status in timeline:
-            text = status.text
-            if 'RT' in text:
-                pass
-            elif '@' in text:
-                pass
-            else:
-                text_list.append(text)
-        text_all = "".join(text_list)
-
-        tagger = Tagger()
-        wakati_text = tagger.parse(text_all)
-
-        for word in wakati_text:
-            if '名詞' in word.feature:
-                wakati_list.append(word.surface)
-
-        wakati_all = " ".join(wakati_list)
+        fpath = "Fonts/NotoSansCJKjp-Medium.otf"
+        
+        wakati_all = session.get('wakati_all')
 
         wordcloud = WordCloud(
             background_color = 'white',
             max_font_size = 40,
             relative_scaling = .5,
-                # width = 900,
-                # height = 500,
+            # width = 900,
+            # height = 500,
             font_path = fpath,
-                #stopwords = set(stop_words)
+            #stopwords = set(stop_words)
             ).generate(wakati_all)
            
         fig = plt.figure()
