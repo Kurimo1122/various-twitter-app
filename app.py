@@ -55,6 +55,7 @@ def index():
     wakati_list = []
     text_all = ""
     wakati_all = "友達"
+    user_image = ""
 
    
     if timeline == False:
