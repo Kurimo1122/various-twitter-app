@@ -34,10 +34,13 @@ app = Flask(__name__)
 # Set key to use session of flask
 app.secret_key = os.environ['SECRET_KEY']
 
+timeline = False
+
 # Set root page
 @app.route('/')
 def index():
     # get user-timeline after authentication
+    global timeline
     timeline = user_timeline()
     return render_template('index.html', timeline=timeline)
 
@@ -53,7 +56,7 @@ def graph2():
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
    
     if timeline == False:
-        return render_template('sin.html', timeline=timeline)
+        return "False!"
     else:
         print("True!")
         
