@@ -47,7 +47,7 @@ def index():
 @app.route('/fig/')
 def graph2():
     
-    timeline = user_timeline()
+    #timeline = user_timeline()
     text_list = []
     wakati_list = []
     text_all = ""
