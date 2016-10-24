@@ -67,7 +67,7 @@ def word_cloud(user_id):
     #if request.method == 'POST':    
     #timeline = request.form['action']
     #print(timeline[0].text)
-    if timeline = session.get('user_timeline') is not None:
+    if session.get('user_timeline') is not None:
         timeline = session.getu('user_timeline')
     else:
         timeline = None
