@@ -54,6 +54,7 @@ def index():
 def word_cloud(user_id):
     
     timeline = request.form['action']
+    print(timeline[0].text)
     text_list = []
     wakati_list = []
     text_all = ""
