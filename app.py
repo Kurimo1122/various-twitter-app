@@ -55,16 +55,16 @@ def index():
     wakati_list = []
     text_all = ""
     wakati_all = "友達"
-    user_image = ""
 
    
     if timeline == False:
         pass
     else:
-        user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
             if 'RT' in text:
+                pass
+            elif '@' in text:
                 pass
             else:
                 text_list.append(text)
@@ -82,17 +82,17 @@ def index():
     session['wakati_all'] = wakati_all
     #print(user_id)
     #print(timeline_list) 
-    return render_template('index.html', timeline=timeline, user_image=user_image)
+    return render_template('index.html', timeline=timeline)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
     
-    #d = path.dirname(__file__)
+    d = path.dirname(__file__)
 
-    #alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
+    alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
 
-    wakati_all = session.get('wakati_all').decode('utf-8')
+    wakati_all = session.get('wakati_all')
     #print(wakati_all)
 
     wordcloud = WordCloud(
@@ -103,7 +103,7 @@ def word_cloud(user_id):
         # height = 500,
         font_path = fpath,
         #stopwords = set(stop_words)
-        #mask = alice_mask,
+        mask = alice_mask,
         ).generate(wakati_all)
            
     fig = plt.figure()
@@ -143,16 +143,17 @@ def images():
 def twitter_auth():
     # Authentication using OAuth by tweepy
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, CALLBACK_URL)
-		
+        
     try:
-		# Get the redirect_url
+        # Get the redirect_url
         redirect_url = auth.get_authorization_url()
         
         # Save the request_token which will be used after authentication
         session['request_token'] = auth.request_token
     
     except (tweepy.TweepError, e):
-        logging.error(str(e).decode('utf-8'))
+        logging.error(str(e))
+    
     return redirect(redirect_url)
 
 # Function to get user_timeline
@@ -163,21 +164,20 @@ def user_timeline():
     
     if token is None or verifier is None:
         return False # if the authentication has not yet been done.
-	
-	# OAuth authentication using tweepy
+    
+    # OAuth authentication using tweepy
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, CALLBACK_URL)
-	
-	# Get access token, Access token secret
+    
+    # Get access token, Access token secret
     auth.request_token = token
     try:
         auth.get_access_token(verifier)
-    except (tweepy.TweepError):
-        #logging.error(str(e))
+    except (tweepy.TweepError, e):
+        logging.error(str(e))
         return {}
 
-	# Access to Twitter API using tweepy
+    # Access to Twitter API using tweepy
     api = tweepy.API(auth)
-	
-	# Get tweets (max: 100 tweets) list
+    
+    # Get tweets (max: 100 tweets) list
     return api.user_timeline(count=100)
-
