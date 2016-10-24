@@ -50,7 +50,7 @@ def graph2():
     text_all = ""
     wakati_all = ""
 
-    fpath = "./Fonts/hiragino.ttc"
+    fpath = "Fonts/NotoSansCJKjp-Medium.otf"
    
     if timeline == False:
         return render_template('sin.html', timeline=timeline)
@@ -85,24 +85,24 @@ def graph2():
             #font_path = fpath,
             #stopwords = set(stop_words)
             ).generate(wakati_all)
-        """   
+           
         fig = plt.figure()
         plt.imshow(wordcloud)
         plt.axis("off")
-        """
-        fig, ax = plt.subplots(1)
-        ppl.bar(ax, np.arange(10), np.abs(np.random.randn(10)))
-        canvas = FigureCanvas(fig)
+        
+        #fig, ax = plt.subplots(1)
+        #ppl.bar(ax, np.arange(10), np.abs(np.random.randn(10)))
+        #canvas = FigureCanvas(fig)
 
         #f = tempfile.TemporaryFile()
-        img = io.BytesiIO()
+        img = io.BytesIO()
         #strio = StringIO()
         #fig.savefig(strio, format="svg")
         fig.savefig(img)
         #plt.close(fig)
         img.seek(0)
         response = send_file(img, mimetype='image/png')
-    return response
+        return response
 
         #f.close()
 
