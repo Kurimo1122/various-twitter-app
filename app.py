@@ -54,7 +54,7 @@ def index():
     text_list = []
     wakati_list = []
     text_all = ""
-    wakati_all = "友達"
+    wakati_all = "友達".decode('utf-8')
     user_image = ""
 
    
@@ -75,7 +75,7 @@ def index():
 
     for word in wakati_text:
         if '名詞'.decode('utf-8') in word.feature:
-            wakati_list.append(word.surface)
+            wakati_list.append(word.surface.decode('utf-8'))
 
     wakati_all = " ".join(wakati_list)
     print(wakati_all)
