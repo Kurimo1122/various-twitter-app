@@ -42,19 +42,20 @@ def index():
     # get user-timeline after authentication
     global timeline
     timeline = user_timeline()
-    """
+    
     if timeline == True:
         user_id = timeline[0].user.screen_name
+        print(user_id)
     else:
-        user_id = ""
-    """
+        print("nothing")
+    
     return render_template('index.html', timeline=timeline)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
     timeline = False
-    if request.method == 'POST':    
-        timeline = request.form['action']
+    #if request.method == 'POST':    
+    timeline = request.form['action']
     #print(timeline[0].text)
     text_list = []
     wakati_list = []
