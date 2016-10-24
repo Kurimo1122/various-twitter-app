@@ -46,48 +46,44 @@ def index():
     #if timeline == True:
     #    session['user_timeline'] = timeline
      
-    if timeline == False:
-        print("nothing")
-    else:
-        user_id = timeline[0].user.screen_name
-        timeline_list = []
+    timeline_list = []
         
-        text_list = []
-        wakati_list = []
-        text_all = ""
-        wakati_all = "友達"
+    text_list = []
+    wakati_list = []
+    text_all = ""
+    wakati_all = "友達"
 
    
-        if timeline == False:
-            return "False!"
-        elif timeline == None:
-            return "False!"
-        else:
-            print("True!")
-    
-            for status in timeline:
-                text = status.text
-                if 'RT' in text:
-                    pass
-                elif '@' in text:
-                    pass
-                else:
-                    text_list.append(text)
-            text_all = "".join(text_list)
+    if timeline == False:
+        return "False!"
+    elif timeline == None:
+        return "False!"
+    else:
+        print("True!")
+   
+        for status in timeline:
+            text = status.text
+            if 'RT' in text:
+                pass
+            elif '@' in text:
+                pass
+            else:
+                text_list.append(text)
+        text_all = "".join(text_list)
 
-            tagger = Tagger()
-            wakati_text = tagger.parse(text_all)
+        tagger = Tagger()
+        wakati_text = tagger.parse(text_all)
 
-            for word in wakati_text:
-                if '名詞' in word.feature:
-                    wakati_list.append(word.surface)
+        for word in wakati_text:
+            if '名詞' in word.feature:
+                wakati_list.append(word.surface)
 
-            wakati_all = " ".join(wakati_list)
+        wakati_all = " ".join(wakati_list)
 
-            session['wakati_all'] = wakati_all
+        session['wakati_all'] = wakati_all
             #print(user_id)
             #print(timeline_list) 
-        return render_template('index.html', timeline=timeline)
+    return render_template('index.html', timeline=timeline)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
