@@ -23,8 +23,8 @@ CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 
 # CALLBACK_URL (Will be redirected after authentication)
-CALLBACK_URL = 'https://twitter-word-cloud-toshi.herokuapp.com'
-#CALLBACK_URL = 'http://localhost:5000' # local environment
+#CALLBACK_URL = 'https://twitter-word-cloud-toshi.herokuapp.com'
+CALLBACK_URL = 'http://localhost:5000' # local environment
 
 logging.warn('app start!')
 
@@ -40,14 +40,15 @@ timeline = False
 @app.route('/')
 def index():
     # get user-timeline after authentication
-    global timeline
+    #global timeline
     timeline = user_timeline()
-    return render_template('index.html', timeline=timeline)
+    user_id = timeline[0].user.screen_name
+    return render_template('index.html', timeline=timeline, user_id=user_id)
 
-@app.route('/fig/')
-def graph2():
+@app.route('/word_cloud/<user_id>')
+def word_cloud(user_id):
     
-    #timeline = user_timeline()
+    timeline = request.form['action']
     text_list = []
     wakati_list = []
     text_all = ""
