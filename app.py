@@ -59,7 +59,10 @@ def word_cloud(user_id):
     #if request.method == 'POST':    
     #timeline = request.form['action']
     #print(timeline[0].text)
-    timeline = session.get('user_timeline', None)
+    #timeline = session.get('user_timeline', None)
+    my_var = request.args.get('user_timeline', None)
+    print(my_var)
+    timeline = False 
 
     text_list = []
     wakati_list = []
