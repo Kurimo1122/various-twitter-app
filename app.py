@@ -42,7 +42,10 @@ def index():
     # get user-timeline after authentication
     #global timeline
     timeline = user_timeline()
-    user_id = timeline[0].user.screen_name
+    if timeline == True:
+        user_id = timeline[0].user.screen_name
+    else:
+        user_id = ""
     return render_template('index.html', timeline=timeline, user_id=user_id)
 
 @app.route('/word_cloud/<user_id>')
