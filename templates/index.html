@@ -16,7 +16,7 @@
                     <img src="/static/images/output.png" style="margin: 30px;"/>
                     <img src="{{ user_image }}" style="margin: 30px; width: 20%;"/>
                     <img src="/static/images/alice_mask.png" style="margin: 30px;" class="image-alice" />
-                    <p style="font-size: 20px;">10 / 100 ツイートを表示中</p>
+                    <p style="font-size: 20px;">あなたの最新のツイート100件を取得してワードクラウドを作ります．(10 / 100 ツイートを表示中)</p>
                     {% for i in range(10) %}
                         <hr align="center">
                         <p>{{ timeline[i].text }}</p>
