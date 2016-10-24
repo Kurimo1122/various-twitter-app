@@ -1,7 +1,8 @@
 # coding:utf-8
-import json
 import io
 import os
+from os import path
+import numpy as np
 import logging
 import tweepy
 from flask import Flask, session, redirect, render_template, request, send_file
@@ -15,6 +16,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 import random
 import string
 import codecs
+
+from PIL import Image
 
 
 # Consumer Key
@@ -84,7 +87,11 @@ def index():
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
-        
+    
+    d = path.dirname(__file__)
+
+    alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
+
     wakati_all = session.get('wakati_all')
     #print(wakati_all)
 
@@ -96,6 +103,7 @@ def word_cloud(user_id):
         # height = 500,
         font_path = fpath,
         #stopwords = set(stop_words)
+        mask = alice_mask,
         ).generate(wakati_all)
            
     fig = plt.figure()
