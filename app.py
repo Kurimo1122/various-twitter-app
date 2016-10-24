@@ -49,6 +49,7 @@ def index():
         print("nothing")
     else:
         user_id = timeline[0].user.screen_name
+        session['user_timeline'] = timeline
         print(user_id)
     
     return render_template('index.html', timeline=timeline)
