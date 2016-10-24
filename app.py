@@ -153,7 +153,6 @@ def twitter_auth():
     
     except (tweepy.TweepError):
         #logging.error(str(e))
-    
     return redirect(redirect_url)
 
 # Function to get user_timeline
