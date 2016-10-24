@@ -49,9 +49,15 @@ def index():
         print("nothing")
     else:
         user_id = timeline[0].user.screen_name
-        session['user_timeline'] = timeline
+        timeline_list = []
+        
+        for status in timeline:
+            json_str = json.dumps(status._json)
+            timeline_list.append(json_str)
+
+        session['user_timeline'] = timeline_list
         print(user_id)
-    
+        print(timeline_list) 
     return render_template('index.html', timeline=timeline)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
