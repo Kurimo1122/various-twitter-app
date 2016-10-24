@@ -42,8 +42,8 @@ def index():
     # get user-timeline after authentication
     #global timeline
     timeline = user_timeline()
-    if timeline == True:
-        session['user_timeline'] = timeline
+    #if timeline == True:
+    #    session['user_timeline'] = timeline
     """ 
     if timeline == True:
         user_id = timeline[0].user.screen_name
