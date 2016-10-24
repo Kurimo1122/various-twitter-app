@@ -180,5 +180,5 @@ def user_timeline():
     api = tweepy.API(auth)
 	
 	# Get tweets (max: 100 tweets) list
-    return api.user_timeline(count=500)
+    return api.user_timeline(count=100)
 
