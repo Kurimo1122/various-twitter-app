@@ -58,7 +58,7 @@ def index():
 
         session['user_timeline'] = timeline_list
         print(user_id)
-        print(timeline_list) 
+        #print(timeline_list) 
     return render_template('index.html', timeline=timeline)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
@@ -67,6 +67,7 @@ def word_cloud(user_id):
     #if request.method == 'POST':    
     #timeline = request.form['action']
     #print(timeline[0].text)
+    print(session.get('user_timeline'))
     if session.get('user_timeline') is not None:
         timeline = session.get('user_timeline')
     else:
