@@ -85,7 +85,7 @@ def graph2():
             relative_scaling = .5,
             # width = 900,
             # height = 500,
-            #font_path = fpath,
+            font_path = fpath,
             #stopwords = set(stop_words)
             ).generate(wakati_all)
            
