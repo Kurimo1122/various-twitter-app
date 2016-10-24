@@ -75,7 +75,7 @@ def index():
             wakati_list.append(word.surface)
 
     wakati_all = " ".join(wakati_list)
-    print(wakati_all)
+    #print(wakati_all)
     session['wakati_all'] = wakati_all
     #print(user_id)
     #print(timeline_list) 
@@ -86,7 +86,7 @@ def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
         
     wakati_all = session.get('wakati_all')
-    print(wakati_all)
+    #print(wakati_all)
 
     wordcloud = WordCloud(
         background_color = 'white',
