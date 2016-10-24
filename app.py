@@ -54,7 +54,7 @@ def index():
     text_list = []
     wakati_list = []
     text_all = ""
-    wakati_all = "友達".decode('utf-8')
+    wakati_all = "友達"
     user_image = ""
 
    
@@ -75,7 +75,7 @@ def index():
 
     for word in wakati_text:
         if '名詞'.decode('utf-8') in word.feature:
-            wakati_list.append(word.surface.decode('utf-8'))
+            wakati_list.append(word.surface)
 
     wakati_all = " ".join(wakati_list)
     print(wakati_all)
@@ -92,7 +92,7 @@ def word_cloud(user_id):
 
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
 
-    wakati_all = session.get('wakati_all')
+    wakati_all = session.get('wakati_all').decode('utf-8')
     print(wakati_all)
 
     wordcloud = WordCloud(
