@@ -55,16 +55,16 @@ def index():
     wakati_list = []
     text_all = ""
     wakati_all = "友達"
+    user_image = ""
 
    
     if timeline == False:
         pass
     else:
+        user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
             if 'RT' in text:
-                pass
-            elif '@' in text:
                 pass
             else:
                 text_list.append(text)
@@ -82,7 +82,7 @@ def index():
     session['wakati_all'] = wakati_all
     #print(user_id)
     #print(timeline_list) 
-    return render_template('index.html', timeline=timeline)
+    return render_template('index.html', timeline=timeline, user_image=user_image)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
