@@ -54,27 +54,29 @@ def index():
     wakati_all = "友達"
 
    
-   
-    for status in timeline:
-        text = status.text
-        if 'RT' in text:
-            pass
-        elif '@' in text:
-            pass
-        else:
-            text_list.append(text)
-    text_all = "".join(text_list)
+    if timeline == False:
+        pass
+    else:
+        for status in timeline:
+            text = status.text
+            if 'RT' in text:
+                pass
+            elif '@' in text:
+                pass
+            else:
+                text_list.append(text)
+        text_all = "".join(text_list)
 
-    tagger = Tagger()
-    wakati_text = tagger.parse(text_all)
+        tagger = Tagger()
+        wakati_text = tagger.parse(text_all)
 
-    for word in wakati_text:
-        if '名詞' in word.feature:
-            wakati_list.append(word.surface)
+        for word in wakati_text:
+            if '名詞' in word.feature:
+                wakati_list.append(word.surface)
 
-    wakati_all = " ".join(wakati_list)
+        wakati_all = " ".join(wakati_list)
 
-    session['wakati_all'] = wakati_all
+        session['wakati_all'] = wakati_all
             #print(user_id)
             #print(timeline_list) 
     return render_template('index.html', timeline=timeline)
