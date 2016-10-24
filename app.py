@@ -93,7 +93,7 @@ def word_cloud(user_id):
     #alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
 
     wakati_all = session.get('wakati_all').decode('utf-8')
-    print(wakati_all)
+    #print(wakati_all)
 
     wordcloud = WordCloud(
         background_color = 'white',
