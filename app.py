@@ -151,8 +151,8 @@ def twitter_auth():
         # Save the request_token which will be used after authentication
         session['request_token'] = auth.request_token
     
-    except (tweepy.TweepError):
-        #logging.error(str(e))
+    except (tweepy.TweepError, e):
+        logging.error(str(e).decode('utf-8'))
     return redirect(redirect_url)
 
 # Function to get user_timeline
