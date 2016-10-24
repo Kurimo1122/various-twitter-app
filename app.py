@@ -86,6 +86,7 @@ def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
         
     wakati_all = session.get('wakati_all')
+    print(wakati_all)
 
     wordcloud = WordCloud(
         background_color = 'white',
