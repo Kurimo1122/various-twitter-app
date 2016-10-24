@@ -97,6 +97,12 @@ def word_cloud(user_id):
     wakati_all = session.get('wakati_all')
     #print(wakati_all)
 
+    stop_words = [
+        u'こと', u'そう', u'はず', u'みたい', u'それ',
+        u'よう', u'こと', u'これ', u'ため', u'せい', 
+        u'どころ'
+    ]
+
     wordcloud = WordCloud(
         background_color = 'white',
         max_font_size = 40,
@@ -104,7 +110,7 @@ def word_cloud(user_id):
         # width = 900,
         # height = 500,
         font_path = fpath,
-        #stopwords = set(stop_words)
+        stopwords = set(stop_words)
         mask = alice_mask,
         ).generate(wakati_all)
            
