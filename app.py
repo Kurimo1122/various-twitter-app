@@ -81,7 +81,7 @@ def word_cloud(user_id):
         wakati_text = tagger.parse(text_all)
 
         for word in wakati_text:
-            if '名詞'.decode("utf-8") in word.feature:
+            if '名詞' """.decode("utf-8")""" in word.feature:
                 wakati_list.append(word.surface)
 
         wakati_all = " ".join(wakati_list)
