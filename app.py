@@ -88,9 +88,9 @@ def index():
 def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
     
-    d = path.dirname(__file__)
+    #d = path.dirname(__file__)
 
-    alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
+    #alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
 
     wakati_all = session.get('wakati_all').decode('utf-8')
     print(wakati_all)
@@ -103,7 +103,7 @@ def word_cloud(user_id):
         # height = 500,
         font_path = fpath,
         #stopwords = set(stop_words)
-        mask = alice_mask,
+        #mask = alice_mask,
         ).generate(wakati_all)
            
     fig = plt.figure()
