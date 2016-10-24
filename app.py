@@ -70,6 +70,8 @@ def word_cloud(user_id):
    
     if timeline == False:
         return "False!"
+    elif timeline == None:
+        return "False!"
     else:
         print("True!")
     
