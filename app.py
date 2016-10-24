@@ -40,7 +40,7 @@ timeline = False
 @app.route('/')
 def index():
     # get user-timeline after authentication
-    #global timeline
+    global timeline
     timeline = user_timeline()
     """
     if timeline == True:
@@ -53,7 +53,7 @@ def index():
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
     
-    timeline = request.form['action']
+    #timeline = request.form['action']
     print(timeline[0].text)
     text_list = []
     wakati_list = []
