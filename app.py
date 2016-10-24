@@ -50,7 +50,7 @@ def index():
     """
     return render_template('index.html', timeline=timeline)
 
-@app.route('/word_cloud/<user_id>')
+@app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
     
     timeline = request.form['action']
