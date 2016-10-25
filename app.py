@@ -57,7 +57,7 @@ def index():
     nounspoint, verbspoint, adjspoint, advspoint = [], [], [], []
     posinega_score = 0
     
-    f = open('pn_ja.dic.txt', 'r', encoding="Shift-JIS")
+    f = io.open('pn_ja.dic.txt', 'r', encoding="Shift-JIS")
     for line in f:
         line = line.rstrip()
         x = line.split(':')
