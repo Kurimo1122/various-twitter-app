@@ -40,6 +40,9 @@ app.secret_key = os.environ['SECRET_KEY']
 
 timeline = False
 
+score = 0
+number = 0
+
 # Set root page
 @app.route('/')
 def index():
@@ -48,7 +51,32 @@ def index():
     timeline = user_timeline()
     #if timeline == True:
     #    session['user_timeline'] = timeline
-     
+    
+    nouns, verbs, adjs, advs = [], [], [], []
+    nounswords, verbswords, adjswords, advswords = [], [], [], []
+    nounspoint, verbspoint, adjspoint, advspoint = [], [], [], []
+    posinega_score = 0
+    
+    f = open('pn_ja.dic.txt', 'r', encoding="Shift-JIS")
+    for line in f:
+        line = line.rstrip()
+        x = line.split(':')
+        if abs(float(x[3])) > 0:
+            if x[2] == '名詞':
+                nounswords.append(x[0])
+                nounspoint.append(x[3])
+            if x[2] == '動詞':
+                verbswords.append(x[0])
+                verbspoint.append(x[3])
+            if x[2] == '形容詞':
+                adjswords.append(x[0])
+                adjspoint.append(x[3])
+            if x[2] == '副詞':
+                advswords.append(x[0])
+                advspoint.append(x[3])
+    f.close()
+
+    
     timeline_list = []
         
     text_list = []
@@ -78,13 +106,31 @@ def index():
     for word in wakati_text:
         if '名詞'.decode('utf-8') in word.feature:
             wakati_list.append(word.surface)
+            nouns.append(word.surface)
+        if '動詞'.decode('utf-8') in word.feature:
+            verbs.append(word.surface)
+        if '形容詞' in word.feature:
+            adjs.append(word.surface)
+        if '副詞' in word.feature:
+            advs.append(word.surface)
 
+    score = number = 0
+    score_n, number_n = analyze(nouns,nounswords,nounspoint)
+    score_v, number_v = analyze(verbs,verbswords,verbspoint)
+    score_j, number_j = analyze(adjs,adjswords,adjspoint)
+    score_v, number_v = analyze(advs,advswords,advspoint)
+    score += score_n + score_v + score_j + score_v
+    number += number_n + number_v + number_j + number_v
+    
+    if number > 0:
+        posinega_score = score / number
+        
     wakati_all = " ".join(wakati_list)
     #print(wakati_all)
     session['wakati_all'] = wakati_all
     #print(user_id)
     #print(timeline_list) 
-    return render_template('index.html', timeline=timeline, user_image=user_image)
+    return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
@@ -189,3 +235,14 @@ def user_timeline():
     
     # Get tweets (max: 100 tweets) list
     return api.user_timeline(count=100)
+
+def analyze(hinshi, words, point):
+    global score, number
+    for i in hinshi:
+        cnt = 0
+        for j in words:
+            if i == j:
+                score += float(point[cnt])
+                number += 1
+            cnt += 1
+    return score, number
