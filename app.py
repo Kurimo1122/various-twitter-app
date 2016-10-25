@@ -16,7 +16,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 import random
 import string
 import codecs
-
 from PIL import Image
 
 
@@ -38,25 +37,21 @@ app = Flask(__name__)
 # Set key to use session of flask
 app.secret_key = os.environ['SECRET_KEY']
 
-timeline = False
-
 score = 0
 number = 0
 
 # Set root page
 @app.route('/')
 def index():
-    # get user-timeline after authentication
-    #global timeline
     timeline = user_timeline()
-    #if timeline == True:
-    #    session['user_timeline'] = timeline
     
+    # preparation for calculating sentiment score
     nouns, verbs, adjs, advs = [], [], [], []
     nounswords, verbswords, adjswords, advswords = [], [], [], []
     nounspoint, verbspoint, adjspoint, advspoint = [], [], [], []
     posinega_score = 0
     
+    # open sentiment table and save each hinshi to each list
     f = io.open('pn_ja.dic.txt', 'r', encoding="Shift-JIS")
     for line in f:
         line = line.rstrip()
@@ -76,15 +71,13 @@ def index():
                 advspoint.append(x[3])
     f.close()
 
-    
-    timeline_list = []
-        
+    #preparation for keitaiso bunseki
+    timeline_list = []   
     text_list = []
     wakati_list = []
     text_all = ""
     wakati_all = "友達"
     user_image = ""
-
    
     if timeline == False:
         pass
@@ -99,10 +92,12 @@ def index():
             else:
                 text_list.append(text)
     text_all = "".join(text_list)
-
+    
+    # keitaiso bunseki
     tagger = Tagger()
     wakati_text = tagger.parse(text_all)
-
+    
+    # calculation of the sentiment score
     for word in wakati_text:
         if '名詞'.decode('utf-8') in word.feature:
             wakati_list.append(word.surface)
@@ -125,23 +120,19 @@ def index():
     if number > 0:
         posinega_score = score / number
         
+    # send wakati_all to word_cloud route
     wakati_all = " ".join(wakati_list)
-    #print(wakati_all)
     session['wakati_all'] = wakati_all
-    #print(user_id)
-    #print(timeline_list) 
+    
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
+#show word cloud
 @app.route('/word_cloud/<user_id>', methods=['GET', 'POST'])
 def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
-    
     d = path.dirname(__file__)
-
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
-
     wakati_all = session.get('wakati_all')
-    #print(wakati_all)
 
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
@@ -153,8 +144,6 @@ def word_cloud(user_id):
         background_color = 'white',
         max_font_size = 40,
         relative_scaling = .5,
-        # width = 900,
-        # height = 500,
         font_path = fpath,
         stopwords = set(stop_words),
         mask = alice_mask,
@@ -164,33 +153,11 @@ def word_cloud(user_id):
     plt.imshow(wordcloud)
     plt.axis("off")
         
-        #fig, ax = plt.subplots(1)
-        #ppl.bar(ax, np.arange(10), np.abs(np.random.randn(10)))
-        #canvas = FigureCanvas(fig)
-
-        #f = tempfile.TemporaryFile()
     img = io.BytesIO()
-        #strio = StringIO()
-        #fig.savefig(strio, format="svg")
     fig.savefig(img)
-        #plt.close(fig)
     img.seek(0)
     response = send_file(img, mimetype='image/png')
     return response
-
-        #f.close()
-
-        #strio.seek(0)
-        #svgstr = strio.buf[strio.buf.find("<svg"):]
-        #return send_file(strio, attachment_filename='graph2.png', as_attachment=True)
-    #return render_template("sin.html", svgstr=svgstr.decode("utf-8"), timeline=timeline)
-
-
-@app.route('/images')
-def images():
-    return render_template("test.html")
-
-
 
 # Set auth page
 @app.route('/twitter_auth', methods=['GET'])
@@ -236,6 +203,7 @@ def user_timeline():
     # Get tweets (max: 100 tweets) list
     return api.user_timeline(count=100)
 
+#analyze function to calculate the sentiment score
 def analyze(hinshi, words, point):
     global score, number
     for i in hinshi:
