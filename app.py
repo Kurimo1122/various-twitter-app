@@ -93,7 +93,7 @@ def index():
             else:
                 text_list.append(text)
     text_all = "".join(text_list)
-    session['text_list'] = "テキストリスト"
+    session['text_list'] = text_list
     session['test_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
