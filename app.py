@@ -75,7 +75,7 @@ def index():
     timeline_list = []   
     text_list = []
     wakati_list = []
-    text_all = ""
+    text_all = "寿"
     user_image = ""
     
     text_list.append("カキクケコ")
