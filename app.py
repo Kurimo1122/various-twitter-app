@@ -119,9 +119,10 @@ def index():
     
     if number > 0:
         posinega_score = score / number
-        
+
     # send wakati_all to word_cloud route
     wakati_all = " ".join(wakati_list)
+    print(wakati_all)
     session['wakati_all'] = wakati_all
     
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
@@ -133,6 +134,7 @@ def word_cloud(user_id):
     d = path.dirname(__file__)
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
     wakati_test = session.get('wakati_all')
+    print(wakati_test)
     wakati_all = "友達 結婚 "
     wakati_all += wakati_test
     print(wakati_all)
