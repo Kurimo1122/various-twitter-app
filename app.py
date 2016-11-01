@@ -133,7 +133,7 @@ def word_cloud(user_id):
     d = path.dirname(__file__)
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
     wakati_test = session.get('wakati_all')
-    wakati_all = "友達 "
+    wakati_all = "友達 結婚 "
     wakati_all += wakati_test
 
     stop_words = [
