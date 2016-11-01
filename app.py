@@ -81,7 +81,7 @@ def index():
     text_list.append("カキクケコ")
 
     if timeline == False:
-        text_list.append('失敗')
+        pass
     else:
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
@@ -142,7 +142,7 @@ def word_cloud(user_id):
     text_all = session.get('text_all')
     print(text_all)
     
-    wakati_all = "友達 結婚 "
+    wakati_all = "テスト中"
     wakati_all += wakati_test
     print(wakati_all)
     stop_words = [
