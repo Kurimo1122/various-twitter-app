@@ -77,7 +77,9 @@ def index():
     wakati_list = []
     text_all = ""
     user_image = ""
-   
+    
+    text_list.append("カキクケコ")
+
     if timeline == False:
         text_list.append('失敗')
     else:
