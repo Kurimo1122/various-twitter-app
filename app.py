@@ -93,6 +93,7 @@ def index():
             else:
                 text_list.append(text)
     text_all = "".join(text_list)
+    session['text_list'] = text_list
     session['test_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
@@ -135,9 +136,12 @@ def word_cloud(user_id):
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
     wakati_test = session.get('wakati_all')
     
+    text_list = session.get('text_list')
+    print(text_list)
+
     text_all = session.get('text_all')
     print(text_all)
-
+    
     wakati_all = "友達 結婚 "
     wakati_all += wakati_test
     print(wakati_all)
