@@ -99,14 +99,14 @@ def index():
     
     # calculation of the sentiment score
     for word in wakati_text:
-        if '名詞'.decode('utf-8') in word.feature:
+        if '名詞'""".decode('utf-8')""" in word.feature:
             wakati_list.append(word.surface)
             nouns.append(word.surface)
-        if '動詞'.decode('utf-8') in word.feature:
+        if '動詞'""".decode('utf-8')""" in word.feature:
             verbs.append(word.surface)
-        if '形容詞'.decode('utf-8') in word.feature:
+        if '形容詞'""".decode('utf-8')""" in word.feature:
             adjs.append(word.surface)
-        if '副詞'.decode('utf-8') in word.feature:
+        if '副詞'""".decode('utf-8')""" in word.feature:
             advs.append(word.surface)
 
     score = number = 0
@@ -135,7 +135,7 @@ def word_cloud(user_id):
     wakati_test = session.get('wakati_all')
     wakati_all = "友達 結婚 "
     wakati_all += wakati_test
-
+    print(wakati_all)
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
         u'よう', u'こと', u'これ', u'ため', u'せい', 
