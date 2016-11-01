@@ -92,7 +92,7 @@ def index():
             else:
                 text_list.append(text)
     text_all = "".join(text_list)
-    
+    session['test_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
     wakati_text = tagger.parse(text_all)
@@ -122,10 +122,7 @@ def index():
 
     # send wakati_all to word_cloud route
     wakati_all = " ".join(wakati_list)
-    test_session = "あ い う え お"
-    print(wakati_all)
     session['wakati_all'] = wakati_all
-    session['test_session'] = test_session
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
@@ -136,11 +133,10 @@ def word_cloud(user_id):
     d = path.dirname(__file__)
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
     wakati_test = session.get('wakati_all')
-
-    test_session = session.get('test_session')
-
-    print(test_session)
     
+    text_all = session.get('text_all')
+    print(text_all)
+
     wakati_all = "友達 結婚 "
     wakati_all += wakati_test
     print(wakati_all)
