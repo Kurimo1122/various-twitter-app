@@ -78,14 +78,13 @@ def index():
     text_all = "寿"
     user_image = ""
     
-    text_list.append("カキクケコ")
-
     if timeline == False:
         pass
     else:
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
+            text_list.append(text)
             if 'RT' in text:
                 pass
             elif '@' in text:
@@ -93,7 +92,6 @@ def index():
             else:
                 text_list.append(text)
     text_all += "".join(text_list)
-    session['text_list'] = text_list
     session['text_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
@@ -136,9 +134,6 @@ def word_cloud(user_id):
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
     wakati_test = session.get('wakati_all')
     
-    text_list = session.get('text_list')
-    print(text_list)
-
     text_all = session.get('text_all')
     print(text_all)
     
