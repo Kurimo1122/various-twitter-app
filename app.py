@@ -76,11 +76,10 @@ def index():
     text_list = []
     wakati_list = []
     text_all = ""
-    wakati_all = "友達"
     user_image = ""
    
     if timeline == False:
-        pass
+        text_list.append('失敗')
     else:
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
