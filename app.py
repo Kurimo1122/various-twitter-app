@@ -77,7 +77,8 @@ def index():
     wakati_list = []
     text_all = "寿"
     user_image = ""
-    
+    test_list = []
+
     if timeline == False:
         pass
     else:
@@ -91,6 +92,8 @@ def index():
                 pass
             else:
                 text_list.append(text)
+                test_list.append(text)
+        session['test_list'] = test_list
     text_all += "".join(text_list)
     session['text_all'] = text_all
     # keitaiso bunseki
@@ -137,6 +140,9 @@ def word_cloud(user_id):
     text_all = session.get('text_all')
     print(text_all)
     
+    test_list = session.get('test_list')
+    print(test_list)
+
     wakati_all = "テスト中"
     wakati_all += wakati_test
     print(wakati_all)
