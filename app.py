@@ -77,16 +77,15 @@ def index():
     wakati_list = []
     text_all = "寿"
     user_image = ""
-
+    test_list = []
     if timeline == False:
         pass
     else:
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
-            print('textをprintするよ')
-            print(text)
             text_list.append(text)
+            session['test_list'] = text_list
             if 'RT' in text:
                 pass
             elif '@' in text:
