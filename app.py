@@ -91,10 +91,10 @@ def index():
             else:
                 text_list.append(text)
 
-    text_all = "".join(text_list)
-    print('text_allをprintするよ')
-    print(text_all)
-    session['text_all'] = text_all
+        text_all = "".join(text_list)
+        print('text_allをprintするよ')
+        print(text_all)
+        session['text_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
     wakati_text = tagger.parse(text_all)
