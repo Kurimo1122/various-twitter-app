@@ -124,6 +124,8 @@ def index():
 
     # send wakati_all to word_cloud route
     wakati_all = " ".join(wakati_list)
+    print('wakati_allをprintするよ')
+    print(wakati_all)
     session['wakati_all'] = wakati_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
