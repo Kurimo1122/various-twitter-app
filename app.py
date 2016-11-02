@@ -77,7 +77,6 @@ def index():
     wakati_list = []
     text_all = "寿"
     user_image = ""
-    test_list = []
 
     if timeline == False:
         pass
@@ -85,6 +84,8 @@ def index():
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
+            print('textをprintするよ')
+            print(text)
             text_list.append(text)
             if 'RT' in text:
                 pass
@@ -92,8 +93,6 @@ def index():
                 pass
             else:
                 text_list.append(text)
-                test_list.append(text)
-        session['test_list'] = test_list
     text_all += "".join(text_list)
     session['text_all'] = text_all
     # keitaiso bunseki
