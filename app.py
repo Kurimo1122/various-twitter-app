@@ -84,16 +84,14 @@ def index():
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
-            text_list.append(text)
-            session['test_list'] = text_list
             if 'RT' in text:
                 pass
             elif '@' in text:
                 pass
             else:
                 text_list.append(text)
-    text_all += "".join(text_list)
-    session['text_all'] = text_all
+        text_all += "".join(text_list)
+        session['text_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
     wakati_text = tagger.parse(text_all)
@@ -138,9 +136,6 @@ def word_cloud(user_id):
     text_all = session.get('text_all')
     print(text_all)
     
-    test_list = session.get('test_list')
-    print(test_list)
-
     wakati_all = "テスト中"
     wakati_all += wakati_test
     print(wakati_all)
