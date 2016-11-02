@@ -90,8 +90,6 @@ def index():
                 pass
             else:
                 text_list.append(text)
-                print('text_listをprintするよ')
-                print(text_list)
 
     text_all += "".join(text_list)
     print('text_allをprintするよ')
