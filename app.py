@@ -95,38 +95,38 @@ def index():
         print('text_allをprintするよ')
         print(text_all)
         session['text_all'] = text_all
-    # keitaiso bunseki
-    tagger = Tagger()
-    wakati_text = tagger.parse(text_all)
+        # keitaiso bunseki
+        tagger = Tagger()
+        wakati_text = tagger.parse(text_all)
     
-    # calculation of the sentiment score
-    for word in wakati_text:
-        if '名詞'""".decode('utf-8')""" in word.feature:
-            wakati_list.append(word.surface)
-            nouns.append(word.surface)
-        if '動詞'""".decode('utf-8')""" in word.feature:
-            verbs.append(word.surface)
-        if '形容詞'""".decode('utf-8')""" in word.feature:
-            adjs.append(word.surface)
-        if '副詞'""".decode('utf-8')""" in word.feature:
-            advs.append(word.surface)
+        # calculation of the sentiment score
+        for word in wakati_text:
+            if '名詞'""".decode('utf-8')""" in word.feature:
+                wakati_list.append(word.surface)
+                nouns.append(word.surface)
+            if '動詞'""".decode('utf-8')""" in word.feature:
+                verbs.append(word.surface)
+            if '形容詞'""".decode('utf-8')""" in word.feature:
+                adjs.append(word.surface)
+            if '副詞'""".decode('utf-8')""" in word.feature:
+                advs.append(word.surface)
 
-    score = number = 0
-    score_n, number_n = analyze(nouns,nounswords,nounspoint)
-    score_v, number_v = analyze(verbs,verbswords,verbspoint)
-    score_j, number_j = analyze(adjs,adjswords,adjspoint)
-    score_v, number_v = analyze(advs,advswords,advspoint)
-    score += score_n + score_v + score_j + score_v
-    number += number_n + number_v + number_j + number_v
+        score = number = 0
+        score_n, number_n = analyze(nouns,nounswords,nounspoint)
+        score_v, number_v = analyze(verbs,verbswords,verbspoint)
+        score_j, number_j = analyze(adjs,adjswords,adjspoint)
+        score_v, number_v = analyze(advs,advswords,advspoint)
+        score += score_n + score_v + score_j + score_v
+        number += number_n + number_v + number_j + number_v
     
-    if number > 0:
-        posinega_score = score / number
+        if number > 0:
+            posinega_score = score / number
 
-    # send wakati_all to word_cloud route
-    wakati_all = " ".join(wakati_list)
-    print('wakati_allをprintするよ')
-    print(wakati_all)
-    session['wakati_all'] = wakati_all
+        # send wakati_all to word_cloud route
+        wakati_all = " ".join(wakati_list)
+        print('wakati_allをprintするよ')
+        print(wakati_all)
+        session['wakati_all'] = wakati_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
