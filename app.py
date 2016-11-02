@@ -91,7 +91,7 @@ def index():
             else:
                 text_list.append(text)
 
-    text_all += "".join(text_list)
+    text_all = "".join(text_list)
     print('text_allをprintするよ')
     print(text_all)
     session['text_all'] = text_all
