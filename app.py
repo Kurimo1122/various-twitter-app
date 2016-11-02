@@ -40,6 +40,8 @@ app.secret_key = os.environ['SECRET_KEY']
 score = 0
 number = 0
 
+text_all = ""
+
 # Set root page
 @app.route('/')
 def index():
@@ -75,9 +77,12 @@ def index():
     timeline_list = []   
     text_list = []
     wakati_list = []
-    text_all = "寿"
     user_image = ""
     test_list = []
+
+    global text_all
+    text_all += "寿"
+    
     if timeline == False:
         pass
     else:
@@ -91,10 +96,10 @@ def index():
             else:
                 text_list.append(text)
 
-        text_all = "".join(text_list)
-        print('text_allをprintするよ')
-        print(text_all)
-        session['text_all'] = text_all
+    text_all += "".join(text_list)
+    print('text_allをprintするよ')
+    print(text_all)
+    session['text_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
     wakati_text = tagger.parse(text_all)
@@ -138,7 +143,8 @@ def word_cloud(user_id):
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
     wakati_test = session.get('wakati_all')
     
-    text_all = session.get('text_all')
+    global text_all
+    #text_all = session.get('text_all')
     print(text_all)
     
     wakati_all = "テスト中"
