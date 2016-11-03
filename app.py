@@ -41,7 +41,7 @@ score = 0
 number = 0
 
 #text_all = ""
-#wakati_all = ""
+global wakati_all
 
 # Set root page
 @app.route('/')
