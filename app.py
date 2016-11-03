@@ -40,7 +40,8 @@ app.secret_key = os.environ['SECRET_KEY']
 score = 0
 number = 0
 
-text_all = ""
+#text_all = ""
+wakati_all = ""
 
 # Set root page
 @app.route('/')
@@ -79,9 +80,9 @@ def index():
     wakati_list = []
     user_image = ""
     test_list = []
-
-    global text_all
-    text_all += "寿"
+    text_all = ""
+    global wakati_all
+    wakati_all = ""
     
     if timeline == False:
         pass
@@ -128,10 +129,10 @@ def index():
         posinega_score = score / number
 
     # send wakati_all to word_cloud route
-    wakati_all = " ".join(wakati_list)
+    wakati_all += " ".join(wakati_list)
     #print('wakati_allをprintするよ')
     #print(wakati_all)
-    session['wakati_all'] = wakati_all
+    #session['wakati_all'] = wakati_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
@@ -141,15 +142,15 @@ def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
     d = path.dirname(__file__)
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
-    wakati_test = session.get('wakati_all')
+    #wakati_test = session.get('wakati_all')
     
-    global text_all
+    #global text_all
     #text_all = session.get('text_all')
-    print('text_allをprint')
-    print(text_all)
+    #print('text_allをprint')
+    #print(text_all)
     
-    wakati_all = "テスト中"
-    wakati_all += wakati_test
+    global wakati_all
+    print('wakati_allをprintするよ')
     print(wakati_all)
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
