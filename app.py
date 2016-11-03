@@ -105,15 +105,28 @@ def index():
     wakati_text = tagger.parse(text_all)
     
     # calculation of the sentiment score
+    """
     for word in wakati_text:
-        if '名詞'""".decode('utf-8')""" in word.feature:
+        if '名詞'.decode('utf-8') in word.feature:
             wakati_list.append(word.surface)
             nouns.append(word.surface)
-        if '動詞'""".decode('utf-8')""" in word.feature:
+        if '動詞'.decode('utf-8') in word.feature:
             verbs.append(word.surface)
-        if '形容詞'""".decode('utf-8')""" in word.feature:
+        if '形容詞'.decode('utf-8') in word.feature:
             adjs.append(word.surface)
-        if '副詞'""".decode('utf-8')""" in word.feature:
+        if '副詞'.decode('utf-8') in word.feature:
+            advs.append(word.surface)
+    """
+
+    for word in wakati_text:
+        if '名詞' in word.feature:
+            wakati_list.append(word.surface)
+            nouns.append(word.surface)
+        if '動詞' in word.feature:
+            verbs.append(word.surface)
+        if '形容詞' in word.feature:
+            adjs.append(word.surface)
+        if '副詞' in word.feature:
             advs.append(word.surface)
 
     print('wakati_listをprintするよ')
