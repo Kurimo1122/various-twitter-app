@@ -161,8 +161,10 @@ def word_cloud(user_id):
     #print(text_all)
     wakati = "テスト中 "
     wakati_all = session.get('wakati_all', None)
+    print('wakati_allをprint')
+    print(wakati_all)
     if wakati_all == None:
-        print('wakati_all is None')
+        app.logger.error('wakati_all is None')
     else:
         wakati += wakati_all
     
