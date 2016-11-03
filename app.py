@@ -144,7 +144,7 @@ def index():
     wakati_all += " ".join(wakati_list)
     #print('wakati_allをprintするよ')
     #print(wakati_all)
-    session['wakati_all'] = wakati_all
+    #session['wakati_all'] = wakati_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
@@ -154,16 +154,17 @@ def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
     d = path.dirname(__file__)
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
-    wakati = session.get('wakati_all')
+    #wakati_test = session.get('wakati_all')
     
     #global text_all
     #text_all = session.get('text_all')
     #print('text_allをprint')
     #print(text_all)
     
-    #global wakati_all
-    #wakati = wakati_all
-    
+    global wakati_all
+    wakati = wakati_all
+    print('wakati_allをprintするよ')
+    print(wakati)
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
         u'よう', u'こと', u'これ', u'ため', u'せい', 
