@@ -114,6 +114,7 @@ def index():
         if '副詞'.decode('utf-8') in word.feature:
             advs.append(word.surface)
     """
+    
         for word in wakati_text:
             if '名詞' in word.feature:
                 wakati_list.append(word.surface)
@@ -140,7 +141,6 @@ def index():
     # send wakati_all to word_cloud route
     #global wakati_all
         wakati_all = " ".join(wakati_list)
-        session['wakati_all'] = wakati_all
     #print('wakati_allをprintするよ')
     
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
