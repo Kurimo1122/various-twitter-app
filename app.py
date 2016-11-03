@@ -150,8 +150,9 @@ def word_cloud(user_id):
     #print(text_all)
     
     global wakati_all
+    wakati = wakati_all
     print('wakati_allをprintするよ')
-    print(wakati_all)
+    print(wakati)
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
         u'よう', u'こと', u'これ', u'ため', u'せい', 
@@ -165,7 +166,7 @@ def word_cloud(user_id):
         font_path = fpath,
         stopwords = set(stop_words),
         mask = alice_mask,
-        ).generate(wakati_all)
+        ).generate(wakati)
            
     fig = plt.figure()
     plt.imshow(wordcloud)
