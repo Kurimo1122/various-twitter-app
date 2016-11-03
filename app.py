@@ -144,8 +144,8 @@ def index():
     #print('wakati_allをprintするよ')
     #print(wakati_all)
     text_all += "アイウエオ"
-    print(text_all)
-    session['wakati_all'] = ['あ', 'い', 'う']
+    if len(text_all) > 10:
+        session['wakati_all'] = text_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
