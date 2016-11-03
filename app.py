@@ -145,8 +145,8 @@ def index():
     #print(wakati_all)
     text_all += "アイウエオ"
     print(text_all)
-    session['wakati_all'] = text_all
-    
+    session['wakati_all'] = text_all[:100]
+
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
 #show word cloud
