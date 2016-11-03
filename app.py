@@ -103,7 +103,7 @@ def index():
     wakati_text = tagger.parse(text_all)
     
     # calculation of the sentiment score
-    
+    """
     for word in wakati_text:
         if '名詞'.decode('utf-8') in word.feature:
             wakati_list.append(word.surface)
@@ -114,8 +114,8 @@ def index():
             adjs.append(word.surface)
         if '副詞'.decode('utf-8') in word.feature:
             advs.append(word.surface)
-    
     """
+    
     for word in wakati_text:
         if '名詞' in word.feature:
             wakati_list.append(word.surface)
@@ -126,7 +126,7 @@ def index():
             adjs.append(word.surface)
         if '副詞' in word.feature:
             advs.append(word.surface)
-    """
+    
 
     score = number = 0
     score_n, number_n = analyze(nouns,nounswords,nounspoint)
