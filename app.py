@@ -85,6 +85,7 @@ def index():
     if timeline == False:
         pass
     else:
+        session['timeline'] = timeline
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
@@ -170,7 +171,7 @@ def word_cloud(user_id):
     #global wakati_all
     #wakati += wakati_all
 
-    timeline = user_timeline() 
+    timeline = session.get('timeline')
     text_list = []
     wakati_list = []
     test_list = []
@@ -179,7 +180,6 @@ def word_cloud(user_id):
 
     if timeline == False:
         print("ファルスですわ")
-        return render_template('index.html', timeline=timeline)
     else:
         for status in timeline:
             text = status.text
