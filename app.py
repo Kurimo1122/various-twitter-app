@@ -97,9 +97,9 @@ def index():
                 text_list.append(text)
 
     text_all += "".join(text_list)
-    print('text_allをprintするよ')
-    print(text_all)
-    session['text_all'] = text_all
+    #print('text_allをprintするよ')
+    #print(text_all)
+    #session['text_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
     wakati_text = tagger.parse(text_all)
@@ -129,8 +129,8 @@ def index():
 
     # send wakati_all to word_cloud route
     wakati_all = " ".join(wakati_list)
-    print('wakati_allをprintするよ')
-    print(wakati_all)
+    #print('wakati_allをprintするよ')
+    #print(wakati_all)
     session['wakati_all'] = wakati_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
@@ -145,6 +145,7 @@ def word_cloud(user_id):
     
     global text_all
     #text_all = session.get('text_all')
+    print('text_allをprint')
     print(text_all)
     
     wakati_all = "テスト中"
