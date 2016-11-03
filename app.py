@@ -17,8 +17,6 @@ import random
 import string
 import codecs
 from PIL import Image
-import json
-from datetime import datetime
 
 
 # Consumer Key
@@ -87,7 +85,6 @@ def index():
     if timeline == False:
         pass
     else:
-        session['timeline'] = json.dumps(timeline, default=support_datetime_default)
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
@@ -98,11 +95,11 @@ def index():
             else:
                 text_list.append(text)
 
-    text_all += "".join(text_list)
+        text_all += "".join(text_list)
     
     # keitaiso bunseki
-    tagger = Tagger()
-    wakati_text = tagger.parse(text_all)
+        tagger = Tagger()
+        wakati_text = tagger.parse(text_all)
     
     # calculation of the sentiment score
     """
@@ -118,32 +115,33 @@ def index():
             advs.append(word.surface)
     """
     
-    for word in wakati_text:
-        if '名詞' in word.feature:
-            wakati_list.append(word.surface)
-            nouns.append(word.surface)
-        if '動詞' in word.feature:
-            verbs.append(word.surface)
-        if '形容詞' in word.feature:
-            adjs.append(word.surface)
-        if '副詞' in word.feature:
-            advs.append(word.surface)
+        for word in wakati_text:
+            if '名詞' in word.feature:
+                wakati_list.append(word.surface)
+                nouns.append(word.surface)
+            if '動詞' in word.feature:
+                verbs.append(word.surface)
+            if '形容詞' in word.feature:
+                adjs.append(word.surface)
+            if '副詞' in word.feature:
+                advs.append(word.surface)
     
 
-    score = number = 0
-    score_n, number_n = analyze(nouns,nounswords,nounspoint)
-    score_v, number_v = analyze(verbs,verbswords,verbspoint)
-    score_j, number_j = analyze(adjs,adjswords,adjspoint)
-    score_v, number_v = analyze(advs,advswords,advspoint)
-    score += score_n + score_v + score_j + score_v
-    number += number_n + number_v + number_j + number_v
+        score = number = 0
+        score_n, number_n = analyze(nouns,nounswords,nounspoint)
+        score_v, number_v = analyze(verbs,verbswords,verbspoint)
+        score_j, number_j = analyze(adjs,adjswords,adjspoint)
+        score_v, number_v = analyze(advs,advswords,advspoint)
+        score += score_n + score_v + score_j + score_v
+        number += number_n + number_v + number_j + number_v
     
-    if number > 0:
-        posinega_score = score / number
+        if number > 0:
+            posinega_score = score / number
 
     # send wakati_all to word_cloud route
     #global wakati_all
-    wakati_all = " ".join(wakati_list)
+        wakati_all = " ".join(wakati_list)
+        session['wakati_all'] = wakati_all
     #print('wakati_allをprintするよ')
     
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
@@ -160,8 +158,8 @@ def word_cloud(user_id):
     #text_all = session.get('text_all')
     #print('text_allをprint')
     #print(text_all)
-    #wakati = "テスト中 "
-    #wakati_all = session.get('wakati_all', None)
+    wakati_all = "テスト中 "
+    wakati_all += session.get('wakati_all', None)
     #print('wakati_allをprint')
     #print(wakati_all)
     """
@@ -173,36 +171,6 @@ def word_cloud(user_id):
     #global wakati_all
     #wakati += wakati_all
 
-    timeline = session.get('timeline')
-    text_list = []
-    wakati_list = []
-    test_list = []
-    text_all = ""
-    wakati_all = "テスト中です"
-
-    if timeline == False:
-        print("ファルスですわ")
-    else:
-        for status in timeline:
-            text = status.text
-            if 'RT' in text:
-                pass
-            elif '@' in text:
-                pass
-            else:
-                text_list.append(text)
-
-        text_all += "".join(text_list)
-    
-        # keitaiso bunseki
-        tagger = Tagger()
-        wakati_text = tagger.parse(text_all)
- 
-        for word in wakati_text:
-            if '名詞' in word.feature:
-               wakati_list.append(word.surface)
-
-        wakati_all = " ".join(wakati_list)
     
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
@@ -284,9 +252,3 @@ def analyze(hinshi, words, point):
                 number += 1
             cnt += 1
     return score, number
-
-
-def support_datetime_default(o):
-    if isinstance(o, datetime):
-        return o.isoformat()
-    raise TypeError(repr(o) + " is not JSON serializable")
