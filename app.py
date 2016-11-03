@@ -26,8 +26,8 @@ CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 
 # CALLBACK_URL (Will be redirected after authentication)
-CALLBACK_URL = 'https://twitter-word-cloud-toshi.herokuapp.com'
-#CALLBACK_URL = 'http://localhost:5000' # local environment
+#CALLBACK_URL = 'https://twitter-word-cloud-toshi.herokuapp.com'
+CALLBACK_URL = 'http://localhost:5000' # local environment
 
 logging.warn('app start!')
 
@@ -41,7 +41,7 @@ score = 0
 number = 0
 
 #text_all = ""
-global wakati_all
+wakati_all = ""
 
 # Set root page
 @app.route('/')
@@ -139,11 +139,11 @@ def index():
         posinega_score = score / number
 
     # send wakati_all to word_cloud route
-    global wakati_all
+    #global wakati_all
     wakati_all = " ".join(wakati_list)
     #print('wakati_allをprintするよ')
     #print(wakati_all)
-    #session['wakati_all'] = wakati_all
+    session['wakati_all'] = wakati_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
@@ -160,9 +160,14 @@ def word_cloud(user_id):
     #print('text_allをprint')
     #print(text_all)
     wakati = "テスト中 "
+    wakati_all = session.get('wakati_all', None)
+    if wakati_all == None:
+        app.logger.error('wakati_all is None')
+    else:
+        wakati += wakati_all
     
-    global wakati_all
-    wakati += wakati_all
+    #global wakati_all
+    #wakati += wakati_all
     
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
