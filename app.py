@@ -179,6 +179,7 @@ def word_cloud(user_id):
 
     if timeline == False:
         print("ファルスですわ")
+        return render_template('index.html', timeline=timeline)
     else:
         for status in timeline:
             text = status.text
