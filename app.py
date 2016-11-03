@@ -142,11 +142,7 @@ def index():
     #global wakati_all
     wakati_all = " ".join(wakati_list)
     #print('wakati_allをprintするよ')
-    #print(wakati_all)
-    if timeline == False:
-        pass
-    else:
-        session['wakati_all'] = wakati_all
+    
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
 #show word cloud
@@ -161,10 +157,10 @@ def word_cloud(user_id):
     #text_all = session.get('text_all')
     #print('text_allをprint')
     #print(text_all)
-    wakati = "テスト中 "
-    wakati_all = session.get('wakati_all', None)
-    print('wakati_allをprint')
-    print(wakati_all)
+    #wakati = "テスト中 "
+    #wakati_all = session.get('wakati_all', None)
+    #print('wakati_allをprint')
+    #print(wakati_all)
     """
     if wakati_all == None:
         app.logger.error('wakati_all is None')
@@ -173,6 +169,36 @@ def word_cloud(user_id):
     """
     #global wakati_all
     #wakati += wakati_all
+
+    timeline = user_timeline() 
+    text_list = []
+    wakati_list = []
+    test_list = []
+    text_all = ""
+
+    if timeline == False:
+        pass
+    else:
+        for status in timeline:
+            text = status.text
+            if 'RT' in text:
+                pass
+            elif '@' in text:
+                pass
+            else:
+                text_list.append(text)
+
+    text_all += "".join(text_list)
+    
+    # keitaiso bunseki
+    tagger = Tagger()
+    wakati_text = tagger.parse(text_all)
+ 
+    for word in wakati_text:
+        if '名詞' in word.feature:
+            wakati_list.append(word.surface)
+
+    wakati_all = " ".join(wakati_list)
     
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
@@ -187,7 +213,7 @@ def word_cloud(user_id):
         font_path = fpath,
         stopwords = set(stop_words),
         mask = alice_mask,
-        ).generate(wakati)
+        ).generate(wakati_all)
            
     fig = plt.figure()
     plt.imshow(wordcloud)
