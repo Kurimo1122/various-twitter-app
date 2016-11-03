@@ -144,7 +144,7 @@ def index():
     #print('wakati_allをprintするよ')
     #print(wakati_all)
     if timeline == False:
-        session['wakati_all'] = "ファルスでした"
+        pass
     else:
         session['wakati_all'] = wakati_all
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
