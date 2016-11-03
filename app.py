@@ -145,7 +145,7 @@ def index():
     #print(wakati_all)
     text_all += "アイウエオ"
     print(text_all)
-    session['wakati_all'] = text_all[:100]
+    session['wakati_all'] = text_all[-10:]
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
