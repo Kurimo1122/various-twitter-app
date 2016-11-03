@@ -143,7 +143,8 @@ def index():
     wakati_all = " ".join(wakati_list)
     print('wakati_allをprintするよ')
     print(wakati_all)
-    session['wakati_all'] = text_all
+    text_all += "アイウエオ"
+    session['wakati_all'] = str(text_all)
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
