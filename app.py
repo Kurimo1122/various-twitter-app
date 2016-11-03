@@ -114,7 +114,6 @@ def index():
         if '副詞'.decode('utf-8') in word.feature:
             advs.append(word.surface)
     """
-    
         for word in wakati_text:
             if '名詞' in word.feature:
                 wakati_list.append(word.surface)
