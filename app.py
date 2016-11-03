@@ -85,7 +85,7 @@ def index():
     if timeline == False:
         pass
     else:
-        session['timeline'] = timeline
+        session['timeline'] = json.dumps(timeline, default=support_datetime_default)
         user_image = timeline[0].user.profile_image_url
         for status in timeline:
             text = status.text
@@ -282,3 +282,9 @@ def analyze(hinshi, words, point):
                 number += 1
             cnt += 1
     return score, number
+
+
+def support_datetime_default(o):
+    if isinstance(o, datetime):
+        return o.isoformat()
+    raise TypeError(repr(o) + " is not JSON serializable")
