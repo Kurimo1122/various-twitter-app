@@ -141,8 +141,8 @@ def index():
     # send wakati_all to word_cloud route
     #global wakati_all
     wakati_all = " ".join(wakati_list)
-    #print('wakati_allをprintするよ')
-    #print(wakati_all)
+    print('wakati_allをprintするよ')
+    print(wakati_all)
     session['wakati_all'] = "アイウエオ"
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
