@@ -175,6 +175,7 @@ def word_cloud(user_id):
     wakati_list = []
     test_list = []
     text_all = ""
+    wakati_all = "テスト中です"
 
     if timeline == False:
         pass
@@ -188,17 +189,17 @@ def word_cloud(user_id):
             else:
                 text_list.append(text)
 
-    text_all += "".join(text_list)
+        text_all += "".join(text_list)
     
-    # keitaiso bunseki
-    tagger = Tagger()
-    wakati_text = tagger.parse(text_all)
+        # keitaiso bunseki
+        tagger = Tagger()
+        wakati_text = tagger.parse(text_all)
  
-    for word in wakati_text:
-        if '名詞' in word.feature:
-            wakati_list.append(word.surface)
+        for word in wakati_text:
+            if '名詞' in word.feature:
+               wakati_list.append(word.surface)
 
-    wakati_all = " ".join(wakati_list)
+        wakati_all = " ".join(wakati_list)
     
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
