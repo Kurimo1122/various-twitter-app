@@ -178,7 +178,7 @@ def word_cloud(user_id):
     wakati_all = "テスト中です"
 
     if timeline == False:
-        pass
+        print("ファルスですわ")
     else:
         for status in timeline:
             text = status.text
