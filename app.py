@@ -159,7 +159,7 @@ def word_cloud(user_id):
     #text_all = session.get('text_all')
     #print('text_allをprint')
     #print(text_all)
-    wakati = "テスト中"
+    wakati = "テスト中 です"
     
     global wakati_all
     wakati += wakati_all
