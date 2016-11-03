@@ -143,10 +143,10 @@ def index():
     wakati_all = " ".join(wakati_list)
     #print('wakati_allをprintするよ')
     #print(wakati_all)
-    text_all += "アイウエオ"
-    if len(text_all) > 10:
-        session['wakati_all'] = text_all
-
+    if timeline == False:
+        session['wakati_all'] = "ファルスでした"
+    else:
+        session['wakati_all'] = wakati_all
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
 #show word cloud
