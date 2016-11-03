@@ -97,8 +97,8 @@ def index():
                 text_list.append(text)
 
     text_all += "".join(text_list)
-    #print('text_allをprintするよ')
-    #print(text_all)
+    print('text_allをprintするよ')
+    print(text_all)
     #session['text_all'] = text_all
     # keitaiso bunseki
     tagger = Tagger()
@@ -115,6 +115,9 @@ def index():
             adjs.append(word.surface)
         if '副詞'""".decode('utf-8')""" in word.feature:
             advs.append(word.surface)
+
+    print('wakati_listをprintするよ')
+    print(wakati_list)
 
     score = number = 0
     score_n, number_n = analyze(nouns,nounswords,nounspoint)
