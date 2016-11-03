@@ -129,9 +129,6 @@ def index():
         if '副詞' in word.feature:
             advs.append(word.surface)
 
-    print('wakati_listをprintするよ')
-    print(wakati_list)
-
     score = number = 0
     score_n, number_n = analyze(nouns,nounswords,nounspoint)
     score_v, number_v = analyze(verbs,verbswords,verbspoint)
@@ -145,9 +142,9 @@ def index():
 
     # send wakati_all to word_cloud route
     wakati_all += " ".join(wakati_list)
-    print('wakati_allをprintするよ')
-    print(wakati_all)
-    #session['wakati_all'] = wakati_all
+    #print('wakati_allをprintするよ')
+    #print(wakati_all)
+    session['wakati_all'] = wakati_all
 
     return render_template('index.html', timeline=timeline, user_image=user_image, posinega_score = posinega_score)
 
@@ -157,17 +154,16 @@ def word_cloud(user_id):
     fpath = "Fonts/NotoSansCJKjp-Medium.otf"
     d = path.dirname(__file__)
     alice_mask = np.array(Image.open(path.join(d, "alice_mask.png")))
-    #wakati_test = session.get('wakati_all')
+    wakati = session.get('wakati_all')
     
     #global text_all
     #text_all = session.get('text_all')
     #print('text_allをprint')
     #print(text_all)
     
-    global wakati_all
-    wakati = wakati_all
-    print('wakati_allをprintするよ')
-    print(wakati)
+    #global wakati_all
+    #wakati = wakati_all
+    
     stop_words = [
         u'こと', u'そう', u'はず', u'みたい', u'それ',
         u'よう', u'こと', u'これ', u'ため', u'せい', 
