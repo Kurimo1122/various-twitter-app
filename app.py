@@ -82,7 +82,6 @@ def index():
     test_list = []
     text_all = ""
     global wakati_all
-    wakati_all = ""
     
     if timeline == False:
         pass
