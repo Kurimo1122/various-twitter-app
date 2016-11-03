@@ -81,8 +81,6 @@ def index():
     user_image = ""
     test_list = []
     text_all = ""
-    global wakati_all
-    wakati_all = "テスト中　"
     
     if timeline == False:
         pass
@@ -141,7 +139,8 @@ def index():
         posinega_score = score / number
 
     # send wakati_all to word_cloud route
-    wakati_all += " ".join(wakati_list)
+    global wakati_all
+    wakati_all = " ".join(wakati_list)
     #print('wakati_allをprintするよ')
     #print(wakati_all)
     #session['wakati_all'] = wakati_all
@@ -160,7 +159,7 @@ def word_cloud(user_id):
     #text_all = session.get('text_all')
     #print('text_allをprint')
     #print(text_all)
-    wakati = ""
+    wakati = "テスト中 "
     
     global wakati_all
     wakati += wakati_all
