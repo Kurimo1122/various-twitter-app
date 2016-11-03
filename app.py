@@ -26,8 +26,8 @@ CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 
 # CALLBACK_URL (Will be redirected after authentication)
-#CALLBACK_URL = 'https://twitter-word-cloud-toshi.herokuapp.com'
-CALLBACK_URL = 'http://localhost:5000' # local environment
+CALLBACK_URL = 'https://twitter-word-cloud-toshi.herokuapp.com'
+#CALLBACK_URL = 'http://localhost:5000' # local environment
 
 logging.warn('app start!')
 
@@ -41,7 +41,7 @@ score = 0
 number = 0
 
 #text_all = ""
-wakati_all = ""
+#wakati_all = ""
 
 # Set root page
 @app.route('/')
@@ -82,6 +82,7 @@ def index():
     test_list = []
     text_all = ""
     global wakati_all
+    wakati_all = "テスト中　"
     
     if timeline == False:
         pass
@@ -159,7 +160,7 @@ def word_cloud(user_id):
     #text_all = session.get('text_all')
     #print('text_allをprint')
     #print(text_all)
-    wakati = "テスト中 です"
+    wakati = ""
     
     global wakati_all
     wakati += wakati_all
